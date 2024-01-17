@@ -30,7 +30,8 @@ const controlRecipe = async function () {
     // Create the html Elements and render
     recipeView.render(model.state.recipe);
   } catch (err) {
-    recipeView.renderError(err.message);
+    recipeView.renderError(err);
+    console.error(err);
   }
 };
 
