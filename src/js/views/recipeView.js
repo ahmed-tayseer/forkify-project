@@ -11,23 +11,25 @@ class RecipeView extends View {
     ['load', 'hashchange'].forEach(ev => window.addEventListener(ev, handler));
   }
 
-  addHandlerServings(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      e.preventDefault();
-      const btnServings = e.target.closest('.btn--update-servings');
-      if (!btnServings) return;
-
-      const newServings = +btnServings.dataset.servings;
-      if (newServings > 0) handler(newServings);
-    });
+  _addHandlerServings(btnServings, handler) {
+    const newServings = +btnServings.dataset.servings;
+    if (newServings > 0) handler(newServings);
   }
 
-  addHandlerBookmark(handler) {
+  addHandlerRecipeBtns(handleBookmark, handleServings) {
     this._parentElement.addEventListener('click', e => {
       e.preventDefault();
-      const btnBookmark = e.target.closest('.btn--round');
-      if (!btnBookmark) return;
-      handler();
+
+      // Directions btn
+      if (e.target.closest('.recipe__btn'))
+        return window.open(this._data.source);
+
+      // Bookmarks btn
+      if (e.target.closest('.btn--round')) return handleBookmark();
+
+      // Servings btns
+      const btnServings = e.target.closest('.btn--update-servings');
+      if (btnServings) this._addHandlerServings(btnServings, handleServings);
     });
   }
 

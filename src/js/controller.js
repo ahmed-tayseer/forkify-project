@@ -119,9 +119,7 @@ const controlAddRecipe = async function (newRecipe) {
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarks); // must be before control recipe so that controlBookmarks is the first one in call back queue after loading then stored bookmarks are rendered before the bookmarksView.update() in the control recipe
   recipeView.addHandlerRender(controlRecipe);
-  recipeView.addHandlerServings(controlUpdateRecipe);
-  recipeView.addHandlerBookmark(controlChangeBookmarks);
-
+  recipeView.addHandlerRecipeBtns(controlChangeBookmarks, controlUpdateRecipe);
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerPagination(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
